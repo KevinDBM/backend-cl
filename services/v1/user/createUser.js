@@ -30,7 +30,7 @@ const createUser = async (req,res) => {
 
         return res.status(201).json({
             success : true,
-            message : 'User created succesfull',
+            message : 'Usuario creado con éxito',
             user: userDTO(resultCreated)
         })
     }
