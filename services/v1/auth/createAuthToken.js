@@ -44,7 +44,7 @@ const createUser = async (req,res) => {
 
 const createToken = (id,email,name) => {
     return jwt.sign({id,name,email}, JWT_KEY, {
-        expiresIn: '1m'
+        expiresIn: '24h'
     });
 }
 
