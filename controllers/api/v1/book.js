@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 //services
-const createBookService = require('../../../services/v1/book/createBook')
-const updateBookService = require('../../../services/v1/book/updateBook')
+const createBookService = require('../../../services/v1/book/createBook');
+const updateBookService = require('../../../services/v1/book/updateBook');
+const deleteBookService = require('../../../services/v1/book/deleteBook');
 
 //middlewares
 const {validateCreateBook,validateUpdateBook} = require('../../../middlewares/validationBook')
@@ -15,5 +16,6 @@ const checkAuthorExist = require('../../../middlewares/books/checkAuthorExist')
 
 router.post('/',checkAuth,validateCreateBook(),checkErrors,checkAuthorExist.required, createBookService)
 router.patch('/:bookId',checkAuth,validateUpdateBook(),checkErrors,checkOwnsBook,checkAuthorExist.noRequired, updateBookService)
+router.delete('/:bookId',checkAuth,checkOwnsBook, deleteBookService)
 
 module.exports = router
