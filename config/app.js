@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const database = require('./database');
-const expressValidator = require('express-validator');
+const {check: expressValidator} = require('express-validator');
 const cors = require('cors');
 
 module.exports = () => {
@@ -20,7 +20,7 @@ module.exports = () => {
     app.set('env', process.env.NODE_ENV);
     app.set(
       'port',
-      process.env.NODE_PORT !== undefined ? process.env.NODE_PORT : 9232
+      process.env.NODE_PORT !== undefined ? process.env.NODE_PORT : 9250
     );
     app.set(
       'hostname',

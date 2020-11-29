@@ -1,7 +1,7 @@
 // Controller That handle incoming requests
-const clientController = require('../../controllers/api/v1/test');
+const userController = require('../../controllers/api/v1/user');
 
 const express = require('express');
 let router = express.Router();
-router.use('/test', clientController);
+router.use('/users', userController);
 module.exports = router;
