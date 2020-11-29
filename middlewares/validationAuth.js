@@ -1,12 +1,7 @@
 const { body } = require('express-validator');
 
-const validateCreateUser = () => {
+const validateCreateToken = () => {
     return [
-      body('name')
-        .exists()
-        .withMessage('El nombre es requerido.')
-        .trim()
-        .isLength({min:1}).withMessage('El nombre no puede estar vacío'),
     body('email')
         .exists()
         .withMessage('El correo electrónico es requerido.')
@@ -27,5 +22,5 @@ const validateCreateUser = () => {
   };
   
   module.exports = {
-    validateCreateUser
+    validateCreateToken
   };

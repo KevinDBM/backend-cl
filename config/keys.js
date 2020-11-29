@@ -12,6 +12,6 @@ if (env === 'development') {
     MAILER_PROVIDER: '',
     MAILER_ID: '',
     MAILER_PWD: '',
-    JWT_KEY: ''
+    JWT_KEY: 'development'
   };
 }
