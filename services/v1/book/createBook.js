@@ -1,49 +1,48 @@
-const getUserByEmail = require('../../../DAO/user/getUserByEmail');
-const createUserDAO = require('../../../DAO/user/createUser')
-const userDTO = require('../../../DTO/User').user
+const getAuthorById = require('../../../DAO/author/getAuthorById');
+const createBookDAO = require('../../../DAO/book/createBook');
+const getCompleteBook = require('../../../DAO/book/getCompleteBookById');
+const {completeBook} = require('../../../DTO/Book')
 
+const decodedAuthorizationToken = require('../../../utils/decodedAuthorizationToken')
 //
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcryptjs');
 
 const createUser = async (req,res) => {
     try{
-        return res.status(201).json({
-            success : true,
-            message : 'Usuario creado con éxito'
-        })
+        const {title,isbn,description,author} = req.body;
+        const currentUser = decodedAuthorizationToken(req.headers.authorization);
+        const authorExist = await getAuthorById(author);
 
-        const {name,email,password} = req.body;
-        const existUser = await getUserByEmail(email)
-
-        if(existUser){
+        if(!authorExist){
             return res.status(400).json({
                 success : false,
-                message : 'Ya existe un usuario asociado a este correo electrónico.'
+                message : 'El autor enviado no existe'
             })
         }
-
-        const passwordHash = createPassword(password)
-
-        const resultCreated = await createUserDAO(name,email,passwordHash)
+        
+        const resultCreated = await createBookDAO(title,isbn,description,author,currentUser.id)
 
         if(!resultCreated){
             return res.status(500).json({
                 success : false,
-                message : 'Ha ocurrido un error registrando el usuario.'
+                message : 'Ha ocurrido un error creando el libro.'
             })
         }
 
+        const newBook = await getCompleteBook(resultCreated.id);
+
         return res.status(201).json({
             success : true,
-            message : 'Usuario creado con éxito',
-            user: userDTO(resultCreated)
+            message : 'Libro creado con éxito',
+            book : completeBook(newBook)
         })
+
     }
     catch(error){
-        console.error('Ha ocurrido un error registrando el usuario.',error)
+        console.error('Ha ocurrido un error creando el libro.',error)
         return res.status(500).json({
             success : false,
-            message : 'Ha ocurrido un error registrando el usuario.'
+            message : 'Ha ocurrido un error creando el libro.'
         })
     }
     

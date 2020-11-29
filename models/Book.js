@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize')
 const database = require('../config/database')
 const AuthorModel = require('./Author')
+const UserModel = require('./User')
 
 const BookModel = database.define('Book',{
     id: {
@@ -13,6 +14,7 @@ const BookModel = database.define('Book',{
     isbn : { type: Sequelize.STRING(13),allowNull : false},
     description : { type: Sequelize.STRING(500),allowNull : true},
     author : {type:Sequelize.INTEGER,allowNull:false},
+    owner : {type:Sequelize.INTEGER,allowNull:false},
     createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -29,6 +31,16 @@ const BookModel = database.define('Book',{
     }
 )
 
-BookModel.hasOne(AuthorModel)
+BookModel.belongsTo(AuthorModel,{
+    foreignKey : 'author',
+    sourceKey : 'id'
+})
+
+BookModel.belongsTo(UserModel,{
+    foreignKey : 'owner',
+    sourceKey : 'id',
+    as : 'Owner'
+})
+
 
 module.exports = BookModel
