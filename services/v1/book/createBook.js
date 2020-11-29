@@ -7,18 +7,10 @@ const decodedAuthorizationToken = require('../../../utils/decodedAuthorizationTo
 //
 const bcrypt = require('bcryptjs');
 
-const createUser = async (req,res) => {
+const createBook = async (req,res) => {
     try{
         const {title,isbn,description,author} = req.body;
         const currentUser = decodedAuthorizationToken(req.headers.authorization);
-        const authorExist = await getAuthorById(author);
-
-        if(!authorExist){
-            return res.status(400).json({
-                success : false,
-                message : 'El autor enviado no existe'
-            })
-        }
         
         const resultCreated = await createBookDAO(title,isbn,description,author,currentUser.id)
 
@@ -48,8 +40,4 @@ const createUser = async (req,res) => {
     
 }
 
-const createPassword = (password) => {
-    return bcrypt.hashSync(password,10)
-}
-
-module.exports = createUser
+module.exports = createBook
