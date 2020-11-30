@@ -28,7 +28,7 @@ const createUser = async (req,res) => {
 
         return res.status(201).json({
             success : true,
-            message : 'Token creado exitosamente',
+            message : 'Usuario autenticado correctamente.',
             token: createToken(infoUser.id,infoUser.email,infoUser.name)
         })
     }

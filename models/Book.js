@@ -15,6 +15,7 @@ const BookModel = database.define('Book',{
     description : { type: Sequelize.STRING(500),allowNull : true},
     author : {type:Sequelize.INTEGER,allowNull:false},
     owner : {type:Sequelize.INTEGER,allowNull:false},
+    image : { type: Sequelize.STRING(1000),allowNull : false},
     createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

@@ -6,6 +6,7 @@ const updateBook = async (bookId,newInfo) => {
     if(newInfo.isbn) fieldsUpdate.isbn = newInfo.isbn;
     if(newInfo.description) fieldsUpdate.description = newInfo.description;
     if(newInfo.author) fieldsUpdate.author = newInfo.author;
+    if(newInfo.image) fieldsUpdate.image = newInfo.image;
 
     return await BookModel.update(
         fieldsUpdate,

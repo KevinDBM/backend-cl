@@ -23,7 +23,13 @@ const validateCreateBook = () => {
         .withMessage('El Autor es requerido.')
         .trim()
         .isInt({min:1})
-        .withMessage('El Autor debe ser un número entero mayor a 0')
+        .withMessage('El Autor debe ser un número entero mayor a 0'),
+    body('image')
+        .exists()
+        .withMessage('La imagen es requerida.')
+        .trim()
+        .isURL()
+        .withMessage('La imagen debe ser una url')
     ];
   };
 
