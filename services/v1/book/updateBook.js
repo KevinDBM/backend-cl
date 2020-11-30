@@ -5,13 +5,14 @@ const {completeBook} = require('../../../DTO/Book')
 const updateBook = async (req,res) => {
     try{
         const {bookId} = req.params;
-        const {title,isbn,description,author} = req.body;
+        const {title,isbn,description,author,image} = req.body;
         let fieldsUpdate = {};
 
         if(title) fieldsUpdate.title = title;
         if(isbn) fieldsUpdate.isbn = isbn;
         if(description) fieldsUpdate.description = description;
         if(author) fieldsUpdate.author = author;
+        if(image) fieldsUpdate.image = image;
 
         if(!Object.keys(fieldsUpdate).length){
             return res.status(400).json({

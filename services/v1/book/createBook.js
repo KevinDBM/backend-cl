@@ -9,10 +9,10 @@ const bcrypt = require('bcryptjs');
 
 const createBook = async (req,res) => {
     try{
-        const {title,isbn,description,author} = req.body;
+        const {title,isbn,description,author,image} = req.body;
         const currentUser = decodedAuthorizationToken(req.headers.authorization);
         
-        const resultCreated = await createBookDAO(title,isbn,description,author,currentUser.id)
+        const resultCreated = await createBookDAO(title,isbn,description,author,image,currentUser.id)
 
         if(!resultCreated){
             return res.status(500).json({

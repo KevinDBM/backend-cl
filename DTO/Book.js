@@ -4,6 +4,7 @@ const completeBook = (bookModel) => {
         title : bookModel.title,
         isbn : bookModel.isbn,
         description : bookModel.description,
+        image : bookModel.image,
         author : {
             id : bookModel.Author.id,
             name : bookModel.Author.name

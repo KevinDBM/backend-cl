@@ -62,16 +62,17 @@ module.exports = () => {
     });
 
     app.use((req, res, next) => {
-      const error = new Error('Route Not Found');
-      error.status = 404;
-      next(error);
+      res.status(404).json({
+        success :false,
+        message : 'Route not found'
+      })
     });
 
     app.use((error, req, res, next) => {
-      res.status(error.status || 500);
-      res.json({
-        error: error.message
-      });
+      res.status(error.status || 500).json({
+        success :false,
+        message : error.message
+      })
     });
   };
 
