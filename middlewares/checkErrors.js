@@ -7,7 +7,7 @@ const checkErrors = (req, res, next) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({
       success: false,
-      message: 'Faltan parámetros requeridos',
+      message: 'Errores en los parametros enviados',
       errors: errors.array().filter(error => {
         if(!controlErrors[error.param]){
             controlErrors[error.param] = 1;
