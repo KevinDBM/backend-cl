@@ -53,7 +53,12 @@ const validateUpdateBook = () => {
       .optional()
       .trim()
       .isInt({min:1})
-      .withMessage('El Autor debe ser un número entero mayor a 0')
+      .withMessage('El Autor debe ser un número entero mayor a 0'),
+  body('image')
+      .optional()
+      .trim()
+      .isURL()
+      .withMessage('La imagen debe ser una url')
   ];
 };
   
