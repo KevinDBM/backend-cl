@@ -15,7 +15,7 @@ const getAuthors = async(req,res) => {
         return res.status(200).json({
             success : true,
             message : 'Lista de autores disponibles',
-            books : Authors(allAuthors)
+            authors : Authors(allAuthors)
         })
     }
     catch(error){
