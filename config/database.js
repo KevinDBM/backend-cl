@@ -2,13 +2,13 @@
 const Sequelize = require('sequelize');
 const keys = require('../config/keys');
 const sequelize = new Sequelize(
-  keys.POSTGRES_DATABASE,
-  keys.POSTGRES_USERNAME,
-  keys.POSTGRES_PASSWORD,
+  keys.database,
+  keys.username,
+  keys.password,
   {
-    host: keys.POSTGRES_HOST,
+    host: keys.host,
     port: keys.POSTGRES_PORT,
-    dialect: 'postgres',
+    dialect: keys.dialect,
     timezone: 'America/Bogota',
     define: {
       underscored: true

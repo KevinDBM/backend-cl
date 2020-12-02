@@ -6,15 +6,15 @@ services:
       context: .
       dockerfile: dev.Dockerfile
     ports:
-      - '9232:9232'
-      - '9233:9233'
+      - '9250:9250'
+      - '9251:9251'
     volumes:
       - /usr/src/app/node_modules
       - .:/usr/src/app
     container_name: backend_comparto_libros
     environment:
       NODE_ENV: 'development'
-      NODE_PORT: 9232
+      NODE_PORT: 9250
       HOSTNAME: 'localhost'
 networks:
   default:
