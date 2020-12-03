@@ -7,7 +7,7 @@ const getBooks = async(req,res) => {
         let {own,currentPage,perPage} = req.query;
 
         let currentUser = {};
-        if(typeof own !== undefined) currentUser=decodedAuthorizationToken(req.headers.authorization)
+        if(typeof own !== 'undefined') currentUser=decodedAuthorizationToken(req.headers.authorization)
 
         currentPage = currentPage || 1;
         perPage = perPage || 10;    
