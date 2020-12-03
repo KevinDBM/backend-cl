@@ -1,6 +1,4 @@
 const deleteBookDAO = require('../../../DAO/book/deleteBookById');
-const getCompleteBook = require('../../../DAO/book/getCompleteBookById');
-const {completeBook} = require('../../../DTO/Book')
 
 const deleteBook = async (req,res) => {
     try{
