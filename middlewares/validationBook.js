@@ -61,8 +61,22 @@ const validateUpdateBook = () => {
       .withMessage('La imagen debe ser una url')
   ];
 };
+
+const validateDeleteBooks = () => {
+  return [
+    body('books')
+      .exists()
+      .withMessage('Los ids de los libros son requeridos.')
+      .isArray()
+      .withMessage('Debe enviar un array con los ids de los libros a eliminar')
+      .not()
+      .isEmpty()
+      .withMessage('Debe enviar al menos un id de libro')
+  ];
+};
   
   module.exports = {
     validateCreateBook,
-    validateUpdateBook
+    validateUpdateBook,
+    validateDeleteBooks
   };
