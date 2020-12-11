@@ -1,10 +1,11 @@
 const BookModel = require('../../models/Book');
 const AuthorModel  = require('../../models/Author');
+const UserModel = require('../../models/User');
 const {Op} = require('sequelize');
 
-const productFinderDAO = async(term) => {
+const productFinderDAO = async(term,limit=10,offset=0,completed=false,ownerExcluded=false) => {
     const searchTerm = `%${term}%`
-    return await BookModel.findAll({
+    let options = {
         include : [AuthorModel],
         where : {
             [Op.or] : [
@@ -30,8 +31,23 @@ const productFinderDAO = async(term) => {
                 }
             ]
         },
-        order : [['id','DESC']]
-    })
+        order : [['id','DESC']],
+        limit,
+        offset
+    };
+
+    if(completed){
+        options.include.push({
+            model : UserModel,
+            as : 'Owner'
+        })
+    }
+
+    if(ownerExcluded){
+        options.where.owner = ownerExcluded
+    }
+
+    return await BookModel.findAndCountAll(options);
 }
 
 module.exports = productFinderDAO;
