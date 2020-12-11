@@ -1,19 +1,30 @@
 const getBooksDAO = require('../../../DAO/book/getCompleteBooks');
+const bookFinder = require('../../../DAO/book/bookFinder');
 const decodedAuthorizationToken = require('../../../utils/decodedAuthorizationToken');
 const {completeBooks} = require('../../../DTO/Book')
 
 const getBooks = async(req,res) => {
     try{
-        let {own,currentPage,perPage} = req.query;
-
-        let currentUser = {};
-        if(typeof own !== 'undefined') currentUser=decodedAuthorizationToken(req.headers.authorization)
+        let {own,currentPage,perPage,term} = req.query;
+        let currentUser=decodedAuthorizationToken(req.headers.authorization)
 
         currentPage = currentPage || 1;
         perPage = perPage || 10;    
         const offset = (currentPage - 1) * perPage
 
-        const {count,rows} = await getBooksDAO(perPage,offset,currentUser.id);
+        let result = {};
+        if(term){
+            result = await bookFinder(term,perPage,offset,true,currentUser.id);
+        }
+        else if(typeof own !== 'undefined'){
+           result = await  getBooksDAO(perPage,offset,currentUser.id);
+        }
+        else{
+            result = await  getBooksDAO(perPage,offset,false,currentUser.id);
+        }
+
+        let count = result.count,
+            rows = result.rows;
 
         if(!count){
             return res.status(404).json({
