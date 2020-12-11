@@ -26,8 +26,13 @@ const completeBooks = (books) => {
     return books.map(bookModel => completeBook(bookModel))
 }
 
+const bookSuggestions = (books) => {
+    return books.map(bookModel => singleBook(bookModel))
+}
+
 module.exports = {
     singleBook,
     completeBook,
-    completeBooks
+    completeBooks,
+    bookSuggestions
 }

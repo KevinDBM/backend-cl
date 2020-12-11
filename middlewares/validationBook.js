@@ -1,4 +1,4 @@
-const { body } = require('express-validator');
+const { body,query } = require('express-validator');
 
 const validateCreateBook = () => {
     return [
@@ -74,9 +74,22 @@ const validateDeleteBooks = () => {
       .withMessage('Debe enviar al menos un id de libro')
   ];
 };
+
+const validateBookSuggestions = () => {
+  return [
+    query('term')
+    .exists()
+    .withMessage('Debe enviar un término de búsqueda')
+    .trim()
+    .not()
+    .isEmpty()
+    .withMessage('El término de búsqueda no puede estar vacío'),
+  ]
+}
   
   module.exports = {
     validateCreateBook,
     validateUpdateBook,
-    validateDeleteBooks
+    validateDeleteBooks,
+    validateBookSuggestions
   };
