@@ -1,4 +1,5 @@
 const { body, oneOf,check } = require('express-validator');
+const {bookRequestStatusEnum} = require('../utils/enums')
 
 const validateCreateBookRequest = () =>{
   return [
@@ -24,8 +25,19 @@ const validateCreateBookRequest2 = () =>{
   )
 }
 
+const validateUpdateStatus = () => {
+  return [
+    body('status')
+    .exists()
+    .withMessage('El estado es un campo obligatorio')
+    .isIn(Object.values(bookRequestStatusEnum).map(status => status.name))
+    .withMessage('No envió un valor valido para el estado')
+  ]
+}
+
 
   module.exports = {
     validateCreateBookRequest,
-    validateCreateBookRequest2
+    validateCreateBookRequest2,
+    validateUpdateStatus
   }

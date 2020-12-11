@@ -21,7 +21,9 @@ const getMyCompleteBookRequests = async (userId,limit,offset) => {
                 model : UserModel,
                 as : 'RequestingUser'
             }
-        ]
+        ],
+        limit,
+        offset
     })
 }
 
