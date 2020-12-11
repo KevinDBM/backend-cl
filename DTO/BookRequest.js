@@ -18,6 +18,11 @@ const completeBookRequest = (bookRequestModel) => {
     return  Object.freeze(tmpReturn);
 }
 
+const completeBookRequests = (bookRequests) => {
+    return bookRequests.map(bookRequestModel => completeBookRequest(bookRequestModel))
+}
+
 module.exports = {
-    completeBookRequest
+    completeBookRequest,
+    completeBookRequests
 }

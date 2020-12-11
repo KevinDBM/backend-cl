@@ -3,12 +3,13 @@ const router = express.Router();
 
 //services
 const createBookRequest = require('../../../services/v1/bookRequest/createBookRequest');
+const getMyBookRequests = require('../../../services/v1/bookRequest/getMyBookRequests');
 
 //middlewares
 const checkAuth = require('../../../middlewares/checkAuth');
-const c = require('../../../middlewares/checkErrors');
 const {validateCreateBookRequest,validateCreateBookRequest2} = require('../../../middlewares/validationBookRequest');
 const checkErrors = require('../../../middlewares/checkErrors');
 
-router.post('/',checkAuth,validateCreateBookRequest(),checkErrors,validateCreateBookRequest2(),checkErrors, createBookRequest)
+router.get('/',checkAuth,getMyBookRequests);
+router.post('/',checkAuth,validateCreateBookRequest(),validateCreateBookRequest2(),checkErrors, createBookRequest)
 module.exports = router
