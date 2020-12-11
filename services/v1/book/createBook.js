@@ -1,4 +1,3 @@
-const getAuthorById = require('../../../DAO/author/getAuthorById');
 const createBookDAO = require('../../../DAO/book/createBook');
 const getCompleteBook = require('../../../DAO/book/getCompleteBookById');
 const {completeBook} = require('../../../DTO/Book')
