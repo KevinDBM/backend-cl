@@ -1,4 +1,4 @@
-const { body } = require('express-validator');
+const { body,query } = require('express-validator');
 
 const validateCreateBook = () => {
     return [
@@ -61,8 +61,35 @@ const validateUpdateBook = () => {
       .withMessage('La imagen debe ser una url')
   ];
 };
+
+const validateDeleteBooks = () => {
+  return [
+    body('books')
+      .exists()
+      .withMessage('Los ids de los libros son requeridos.')
+      .isArray()
+      .withMessage('Debe enviar un array con los ids de los libros a eliminar')
+      .not()
+      .isEmpty()
+      .withMessage('Debe enviar al menos un id de libro')
+  ];
+};
+
+const validateBookSuggestions = () => {
+  return [
+    query('term')
+    .exists()
+    .withMessage('Debe enviar un término de búsqueda')
+    .trim()
+    .not()
+    .isEmpty()
+    .withMessage('El término de búsqueda no puede estar vacío'),
+  ]
+}
   
   module.exports = {
     validateCreateBook,
-    validateUpdateBook
+    validateUpdateBook,
+    validateDeleteBooks,
+    validateBookSuggestions
   };

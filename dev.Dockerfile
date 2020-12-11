@@ -1,4 +1,7 @@
 FROM node:10.19.0-alpine
+RUN apk update
+RUN apk add openssh
+EXPOSE 22
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 COPY package.json /usr/src/app
