@@ -2,6 +2,7 @@ const Sequelize = require('sequelize')
 const database = require('../config/database')
 const BookModel = require('./Book')
 const UserModel = require('./User')
+const {bookRequestStatusEnum} = require('../utils/enums')
 
 const BookRequestModel = database.define('BookRequest',{
     id: {
@@ -23,6 +24,11 @@ const BookRequestModel = database.define('BookRequest',{
         allowNull: true,
         type: Sequelize.DATE,
         field: 'updated_at'
+    },
+    status: { 
+        type: Sequelize.ENUM(Object.values(bookRequestStatusEnum).map(status => status.code)), 
+        allowNull: false, 
+        defaultValue: 0 
     }
     },
     {

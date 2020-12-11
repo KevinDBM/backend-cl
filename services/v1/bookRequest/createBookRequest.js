@@ -51,7 +51,7 @@ const createBookRequest = async (req,res) => {
         const newBookRequest = await getCompleteBookRequest(resultCreated.id);
 
 
-        return res.status(200).json({
+        return res.status(201).json({
             success : true,
             bookRequest : completeBookRequest(newBookRequest)
         })

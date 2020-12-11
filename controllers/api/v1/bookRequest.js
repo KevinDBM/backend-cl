@@ -7,9 +7,12 @@ const getMyBookRequests = require('../../../services/v1/bookRequest/getMyBookReq
 
 //middlewares
 const checkAuth = require('../../../middlewares/checkAuth');
-const {validateCreateBookRequest,validateCreateBookRequest2} = require('../../../middlewares/validationBookRequest');
+const {validateCreateBookRequest,validateCreateBookRequest2,validateUpdateStatus} = require('../../../middlewares/validationBookRequest');
 const checkErrors = require('../../../middlewares/checkErrors');
+const checkOwnBookRequest = require('../../../middlewares/bookRequests/checkOwnBookRequest');
+const updateStatusBookRequest = require('../../../services/v1/bookRequest/updateStatusBookRequest');
 
 router.get('/',checkAuth,getMyBookRequests);
 router.post('/',checkAuth,validateCreateBookRequest(),validateCreateBookRequest2(),checkErrors, createBookRequest)
+router.patch('/:bookRequestId/status',checkAuth,validateUpdateStatus(),checkErrors,checkOwnBookRequest,updateStatusBookRequest)
 module.exports = router
