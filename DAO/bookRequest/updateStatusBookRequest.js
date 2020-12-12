@@ -6,7 +6,8 @@ const updateStatusBookRequest = async (bookRequestId,status) => {
         {
             where : {
                 id : bookRequestId
-            }
+            },
+            returning : true
         }
     )
 }
