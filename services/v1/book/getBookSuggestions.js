@@ -1,10 +1,12 @@
 const productFinderDAO = require('../../../DAO/book/bookFinder');
 const {bookSuggestions} = require('../../../DTO/Book');
+const decodedAuthorizationToken = require('../../../utils/decodedAuthorizationToken')
 
 const getBookSugestions = async (req,res) => {
     try{
         const {term} = req.query;
-        const {count,rows} = await productFinderDAO(term);
+        const {id} = decodedAuthorizationToken(req.headers.authorization);
+        const {count,rows} = await productFinderDAO(term,10,0,false,id);
 
         if(!count){
             return res.status(404).json({

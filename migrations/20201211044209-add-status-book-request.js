@@ -4,7 +4,7 @@ const {bookRequestStatusEnum} = require('../utils/enums')
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.addColumn('book_requests','status',{ 
-      type: Sequelize.ENUM(Object.values(bookRequestStatusEnum).map(status => status.code)), 
+      type: Sequelize.ENUM(Object.values(bookRequestStatusEnum).map(status => String(status.code))), 
       allowNull: false, 
       defaultValue: '0' 
   })
