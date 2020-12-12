@@ -53,7 +53,8 @@ const createBookRequest = async (req,res) => {
 
         return res.status(201).json({
             success : true,
-            bookRequest : completeBookRequest(newBookRequest)
+            bookRequest : completeBookRequest(newBookRequest),
+            message : 'Solicitud de libro creada con éxito'
         })
     }
     catch(error){
