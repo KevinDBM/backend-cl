@@ -1,36 +1,21 @@
 const BookModel = require('../../models/Book');
 const AuthorModel  = require('../../models/Author');
 const UserModel = require('../../models/User');
-const {Op} = require('sequelize');
+const {Op,literal,col,fn} = require('sequelize');
 
 const productFinderDAO = async(term,limit=10,offset=0,completed=false,ownerExcluded=false) => {
-    const searchTerm = `%${term}%`
+    const searchTerm = `concat('%',unaccent('${term}'),'%')`
     let options = {
         include : [AuthorModel],
-        where : {
-            [Op.or] : [
-                {
-                    [`$${BookModel.name}.title$`] : {
-                        [Op.iLike] : searchTerm
-                    }
-                },
-                {
-                    [`$${BookModel.name}.description$`] : {
-                        [Op.iLike] : searchTerm
-                    },
-                },
-                {
-                    [`$${BookModel.name}.isbn$`] : {
-                        [Op.iLike] : searchTerm
-                    }
-                },
-                {
-                    [`$${AuthorModel.name}.name$`] : {
-                        [Op.iLike] : searchTerm
-                    }
-                }
-            ]
-        },
+        where : literal(`
+            unaccent("${BookModel.name}"."title") ilike ${searchTerm}
+            or
+            unaccent("${BookModel.name}"."description") ilike ${searchTerm}
+            or
+            unaccent("${BookModel.name}"."isbn") ilike ${searchTerm}
+            or
+            unaccent("${AuthorModel.name}"."name") ilike ${searchTerm}
+        `),
         order : [['id','DESC']],
         limit,
         offset
@@ -44,7 +29,9 @@ const productFinderDAO = async(term,limit=10,offset=0,completed=false,ownerExclu
     }
 
     if(ownerExcluded){
-        options.where.owner = ownerExcluded
+        options.where.owner = {
+            [Op.ne] : ownerExcluded
+        }
     }
 
     return await BookModel.findAndCountAll(options);
