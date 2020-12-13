@@ -1,12 +1,11 @@
 const getBooksDAO = require('../../../DAO/book/getCompleteBooks');
 const bookFinder = require('../../../DAO/book/bookFinder');
-const decodedAuthorizationToken = require('../../../utils/decodedAuthorizationToken');
 const {completeBooks} = require('../../../DTO/Book')
 
 const getBooks = async(req,res) => {
     try{
         let {own,currentPage,perPage,term} = req.query;
-        let currentUser=decodedAuthorizationToken(req.headers.authorization)
+        let currentUser={id:1}
 
         currentPage = currentPage || 1;
         perPage = perPage || 10;    

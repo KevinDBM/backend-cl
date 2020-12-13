@@ -1,3 +1,4 @@
 const server = require('./config/app')();
 server.create();
-server.start();
+module.exports = server.start();
+

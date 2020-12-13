@@ -1,7 +1,6 @@
 'use strict';
-const Sequelize = require('sequelize');
-const keys = require('../config/keys');
-console.log('test dialect',keys.dialect)
+const Sequelize = require('sequelize-mock');
+const keys = require('../../../config/keys');
 const sequelize = new Sequelize(
   keys.database,
   keys.username,
@@ -11,6 +10,8 @@ const sequelize = new Sequelize(
     port: keys.POSTGRES_PORT,
     dialect: keys.dialect,
     timezone: 'America/Bogota',
+    autoQueryFallback : true,
+    stopPropagation : true,
     define: {
       underscored: true
     }

@@ -1,5 +1,5 @@
-let env = process.env.NODE_ENV || 'development';
-console.log(env);
+const getNodeEnv = require('../utils/getNodeEnv')
+let env = getNodeEnv() || 'development';
 
 if (env === 'development') {
   module.exports = {
@@ -13,5 +13,19 @@ if (env === 'development') {
     MAILER_ID: '',
     MAILER_PWD: '',
     JWT_KEY: 'development'
+  };
+}
+if (env === 'test') {
+  module.exports = {
+    username: '',
+    password: '',
+    database: '',
+    host: '',
+    dialect: 'postgres',
+    POSTGRES_PORT : 5432,
+    MAILER_PROVIDER: '',
+    MAILER_ID: '',
+    MAILER_PWD: '',
+    JWT_KEY: ''
   };
 }

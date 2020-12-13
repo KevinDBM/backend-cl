@@ -2,7 +2,6 @@ const BookModel = require('../../models/Book');
 const AuthorModel = require('../../models/Author');
 const UserModel = require('../../models/User');
 const {Op} = require('sequelize')
-
 const getBooks = async (limit,offset,owner=null,ownerExcluded=false) => {
     let where;
     if(owner){

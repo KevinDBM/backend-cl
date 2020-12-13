@@ -34,14 +34,14 @@ module.exports = () => {
 
     //conect with postgresql
     database
-      .authenticate()
-      .then(() => {
-        console.log('Postgresql Connection has been established successfully.');
-      })
-      .catch(err => {
-        console.error('Unable to connect to the postgresql database:', err);
-      });
-
+    .authenticate()
+    .then(() => {
+      console.log('Postgresql Connection has been established successfully.');
+    })
+    .catch(err => {
+      console.error('Unable to connect to the postgresql database:', err);
+    });
+    
     routes.init(app);
 
     // CORS errors control
@@ -74,6 +74,8 @@ module.exports = () => {
         message : error.message
       })
     });
+
+    return app;
   };
 
   start = () => {
@@ -81,8 +83,10 @@ module.exports = () => {
 
     let port = app.get('port');
     app.listen(port, () => {
-      console.log(`Express server listening on - http://${hostname}:${port}`);
+      //console.log(`Express server listening on - http://${hostname}:${port}`);
     });
+
+    return app;
   };
 
   return {

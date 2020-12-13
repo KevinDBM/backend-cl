@@ -1,4 +1,3 @@
-const jwt = require('jsonwebtoken');
 const decodedAuthorizationToken = require('../utils/decodedAuthorizationToken')
 
 module.exports = (req, res, next) => {
